@@ -47,7 +47,9 @@ systemctl enable dhcpd tftp nfs-server warewulfd
 # check logs if necessary
 cat /var/log/warewulfd.log
 
-###### Warewulf.conf image
+###### 1 image
+![Uploading 23.jpg…]()
+
 #2
 #3
 #4
