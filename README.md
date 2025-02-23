@@ -339,6 +339,3 @@ Step 8: After successfully booting up the node :
 
 #35
 #36
-![](./images/slurm-package-get.jpg)
-![](./images/slurm-dependencies.jpg)
-![](./images/dependencies-install.jpg)
