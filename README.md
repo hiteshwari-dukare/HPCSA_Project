@@ -48,7 +48,8 @@ systemctl enable dhcpd tftp nfs-server warewulfd
 cat /var/log/warewulfd.log
 
 ###### 1 image
-![Uploading 23.jpg…]()
+![23](https://github.com/user-attachments/assets/d9dd3f44-4fa0-41d4-abbd-e0f54f049675)
+![23](https://github.com/user-attachments/assets/80b2ff0e-ffd2-4d91-8894-ff48d1a0f4f6)
 
 #2
 #3
