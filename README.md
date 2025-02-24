@@ -18,13 +18,16 @@ su
 
 Step2: Intalling the warewulf :
 
+
 # adding the repository
 yum install -y https://repo.ctrliq.com/rhel/8/ciq-release.rpm
 
 # installing the warewulf
 yum install -y warewulf
 
+
 Step3: Making changes for warewulf configuration file i.e. warewulf.conf :
+
 
 vim /etc/warewulf/warewulf.conf
 
@@ -33,17 +36,22 @@ vim /etc/warewulf/warewulf.conf
     Line no 14: change DHCP starting ip address
     Line no 15: change DHCP ending ip address
 
+
 # configure the warewulf
 wwctl configure --all
+
 
 # check if all the services are running or not
 systemctl status dhcpd tftp nfs-server warewulfd
 
+
 # if services are not running then restart the services
 systemctl start dhcpd tftp nfs-server warewulfd
 
+
 # enable the services
 systemctl enable dhcpd tftp nfs-server warewulfd
+
 
 # check logs if necessary
 cat /var/log/warewulfd.log
@@ -55,11 +63,12 @@ cat /var/log/warewulfd.log
 
 ![4 nfs-server-service](https://github.com/user-attachments/assets/2e4d4107-9abc-491f-84ea-40ba998da194)
 
+
 Step 3: Booting the node using container :
+
 
 # import container from docker hub
 wwctl container import docker://warewulf/rocky rocky-8
-
 
 # to check container list
 wwctl container list
