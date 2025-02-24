@@ -56,6 +56,7 @@ systemctl enable dhcpd tftp nfs-server warewulfd
 # check logs if necessary
 cat /var/log/warewulfd.log
 
+![1 warewulf_conf](https://github.com/user-attachments/assets/cd36bb1f-337f-4941-b2d1-7210196163bd)
 
 ![2 wwctl-configure-all](https://github.com/user-attachments/assets/d9770d6e-2820-4479-b7b8-1937d163fed6)
 
@@ -93,11 +94,14 @@ wwctl node add node1 --ipaddr 10.10.10.232 --discoverable ens34
 # to add a container to a given node
 wwctl node set --container rocky-8 node1
 
+#Note: If this error shows -: hub_port_status failed (err = 110).
+#Solution : Disable the USB Device or remove.
 ![5 solution-for-error](https://github.com/user-attachments/assets/ca75d889-fb56-44f8-af9b-a8ddfc94c9b7)
 
 Installing Slurm :
 
 Step 1: Install munge service on both master and container :
+
 
 # installing epel-release repository
 dnf install epel-release -y
