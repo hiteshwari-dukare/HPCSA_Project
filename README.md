@@ -323,7 +323,7 @@ dnf install ganglia ganglia-gmetad ganglia-gmond ganglia-web -y
 
 ![23](https://github.com/user-attachments/assets/cc5b9296-57eb-4a5a-857c-16ffb074a590)
 
-![24](https://github.com/user-attachments/assets/fab35def-bc9d-42fe-bc6f-6dbfe8773ac6)
+<img width="1068" alt="2" src="https://github.com/user-attachments/assets/b539195d-2353-4692-8cf1-cf8635f08460" />
 
 Step 2: Edit the conf files on master node :
 
@@ -340,12 +340,12 @@ vim /etc/ganglia/gmond.conf
     line no 50: give the master ip address
     line no 57: comment this line
     line no 59: comment this line
+![24](https://github.com/user-attachments/assets/fab35def-bc9d-42fe-bc6f-6dbfe8773ac6)
 
 ![25](https://github.com/user-attachments/assets/889ecfda-b7fc-41e9-b395-88d1aa306d89)
 
 ![26](https://github.com/user-attachments/assets/fb7ceb44-ec07-448e-8ccf-529dba60f68e)
 
-![27](https://github.com/user-attachments/assets/2d1f1a88-0440-4003-b855-2945391e2fba)
 
 
 Step 3: Start the services on master:
