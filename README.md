@@ -129,6 +129,7 @@ Entropy for generating random numbers is usually obtained from computing environ
 The rngd daemon, which is a part of the rng-tools package, is capable of using both environmental noise 
 and hardware random number generators for extracting entropy.
 
+![6 epel-release](https://github.com/user-attachments/assets/48187281-2686-42da-9fb8-22f90ee02cfc)
 
 ![7 yum-repolist](https://github.com/user-attachments/assets/964fe43c-e217-4490-a6db-52c2d7d34d34)
 
@@ -249,6 +250,7 @@ cp /etc/slurm/slurm.conf.example /etc/slurm/slurm.conf
 
 # edit the config file and add node entry
 vi /etc/slurm/slurm.conf
+
     edit : clusterName=warewulf-cluster
     edit : clusterMachine=master
     edit : slurmUser=slurm
