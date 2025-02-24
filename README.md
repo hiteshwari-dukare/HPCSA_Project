@@ -82,15 +82,23 @@ wwctl container import docker://warewulf/rocky rocky-8
 wwctl container list
 
 # to modify the container
+
 wwctl container exec rocky-8 /bin/bash
+    
     dnf install -y passwd
+    
     passwd root
+    
         new password : root
+        
         re enter password : root
+    
     exit
     
 # sync host uid & gid with the container
+
 wwctl overlay build
+
 wwctl container syncuser --write rocky-8
 
 Step 4: Adding node :
@@ -103,6 +111,7 @@ wwctl node set --container rocky-8 node1
 
 #Note: If this error shows -: hub_port_status failed (err = 110).
 #Solution : Disable the USB Device or remove.
+
 ![5 solution-for-error](https://github.com/user-attachments/assets/ca75d889-fb56-44f8-af9b-a8ddfc94c9b7)
 
 Installing Slurm :
@@ -125,7 +134,9 @@ dnf repolist
 
 # starting the random number generator demon
 systemctl start rngd
+
 systemctl enable rngd
+
 systemctl status rngd
 
 Randome number generator
@@ -178,10 +189,13 @@ wget https://download.schedmd.com/slurm/slurm-20.11.9.tar.bz2
 
 # download the rpm-build package
 dnf install rpm-build make -y
+
 # build the packages from tar file
 rpmbuild -ta slurm-20.11.9.tar.bz2
+
 # to install the dependencies
 dnf install pam-devel python3 readline-devel perl-ExtUtils-MakeMaker gcc mysql-devel -y
+
 # now try to build the package again
 rpmbuild -ta slurm-20.11.9.tar.bz2
 
@@ -193,8 +207,10 @@ rpmbuild -ta slurm-20.11.9.tar.bz2
 
 Step 5: Create Slurm User for SLURM Service ;
 export SLURMUSER=900;
+
 # add group
 groupadd -g $SLURMUSER slurm;
+
 # create user
 useradd -m -c "SLURM workload manager" -d /var/lib/slurm -u $SLURMUSER -g slurm -s /bin/bash slurm;
 
@@ -268,6 +284,7 @@ vi /etc/slurm/slurm.conf
             :wq # save and exit
 
 # run on client and get the satus of the node(but node has to be in booted state) and paste this information in the configuration file
+
 slurmd -C
 
 # give ownership to slurm 
@@ -289,6 +306,7 @@ Step 9: To sync the the user with containers we use the command :
 
 # to rebuild the overlays 
 wwctl overlay build
+
 wwctl container syncuser --write rocky-8
 
 # to debug error in slurmd 
@@ -300,6 +318,7 @@ Installing Ganglia :
 Step 1: Installing the Ganglia on master node
 
 dnf install epel-release -y
+
 dnf install ganglia ganglia-gmetad ganglia-gmond ganglia-web -y
 
 ![23](https://github.com/user-attachments/assets/cc5b9296-57eb-4a5a-857c-16ffb074a590)
@@ -310,6 +329,7 @@ Step 2: Edit the conf files on master node :
 
 # on master 
 vim /etc/ganglia/gmetad.conf
+
     line no 44: Change the cluster name
 
 
@@ -331,7 +351,9 @@ vim /etc/ganglia/gmond.conf
 Step 3: Start the services on master:
 
 systemctl start gmetad gmond httpd
+
 systemctl enable gmetad gmond httpd
+
 systemctl status gmetad gmond httpd
 
 ![28](https://github.com/user-attachments/assets/d3ad643f-16bd-45fb-a416-a6516a8a7313)
@@ -342,6 +364,7 @@ systemctl status gmetad gmond httpd
 Step 4: Installing the Ganglia on Container :
 
 dnf install epel-release -y
+
 dnf install ganglia ganglia-gmond -y
 
 ![30](https://github.com/user-attachments/assets/5da26fb1-da79-415c-a791-6881286e1258)
@@ -368,15 +391,19 @@ Step 6 :Start the services on container:
 
 # service get started after nodes get booted
 systemctl start gmond 
+
 systemctl enable gmond 
+
 systemctl status gmond 
 
 Step 7: Rebuild container :
 
 # this command will sync host user to container 
 wwctl container syncuser --write rocky-8
+
 # this command will build overlay for given container
 wwctl overlay build 
+
 # this command rebuild the container forcefully
 wwctl container build -f rocky-8
 
