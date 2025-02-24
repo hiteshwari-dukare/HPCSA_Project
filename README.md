@@ -7,12 +7,19 @@ Step 1: Setting up the os:
 
 setenforce 0
 sed -i 's/^SELINUX=.*$/SELINUX=disabled/g' /etc/selinux/config
+
 systemctl stop firewalld
+
 systemctl disable firewalld
+
 nmcli con up ens33
+
 nmcli con up ens34
+
 hostnamectl set-hostname master
+
 echo "`ip a | grep ens34 | tail -1 | cut -d' ' -f6|cut -c 1-12` master" >> /etc/hosts
+
 su
 
 
