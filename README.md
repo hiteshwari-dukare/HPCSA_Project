@@ -47,13 +47,12 @@ systemctl enable dhcpd tftp nfs-server warewulfd
 # check logs if necessary
 cat /var/log/warewulfd.log
 
-###### 1 image
-![23](https://github.com/user-attachments/assets/d9dd3f44-4fa0-41d4-abbd-e0f54f049675)
-![23](https://github.com/user-attachments/assets/80b2ff0e-ffd2-4d91-8894-ff48d1a0f4f6)
 
-#2
-#3
-#4
+![2 wwctl-configure-all](https://github.com/user-attachments/assets/d9770d6e-2820-4479-b7b8-1937d163fed6)
+
+![3 dhcp-service](https://github.com/user-attachments/assets/d2459cca-5056-4d1d-bd2a-be922660f318)
+
+![4 nfs-server-service](https://github.com/user-attachments/assets/2e4d4107-9abc-491f-84ea-40ba998da194)
 
 Step 3: Booting the node using container :
 
@@ -83,7 +82,8 @@ wwctl node add node1 --ipaddr 10.10.10.232 --discoverable ens34
 
 # to add a container to a given node
 wwctl node set --container rocky-8 node1
-###5.
+
+![5 solution-for-error](https://github.com/user-attachments/assets/ca75d889-fb56-44f8-af9b-a8ddfc94c9b7)
 
 Installing Slurm :
 
@@ -115,11 +115,15 @@ Entropy for generating random numbers is usually obtained from computing environ
 The rngd daemon, which is a part of the rng-tools package, is capable of using both environmental noise 
 and hardware random number generators for extracting entropy.
 
-#6
-#7
-#8
-#9
-#10
+
+![7 yum-repolist](https://github.com/user-attachments/assets/964fe43c-e217-4490-a6db-52c2d7d34d34)
+
+![8 dnf-install-munge](https://github.com/user-attachments/assets/17916c8a-a754-4b58-a3f3-193fe47922ad)
+
+![9 dnf-install-rng-tools](https://github.com/user-attachments/assets/c5a2523b-1268-4712-b332-da1b58386bb2)
+
+![10 rngd-service](https://github.com/user-attachments/assets/f6aa4033-8881-476f-a86b-6372ecd51825)
+
 
 step 2: Generate munge key :
 
@@ -131,13 +135,13 @@ wwctl container exec --bind [path on master]:[path on container] [container name
 # copy the munge file 
 cp /etc/munge/munge.key root/Documents/temp
 
-#11
+![11 copy-munge key](https://github.com/user-attachments/assets/edbaff38-0733-43cf-bac4-dba4e7061fa5)
 
 Resolving Error ( glibc )
 # install language to resolve this error
 dnf install langpacks-en glibc-all-langpacks -y
 
-#12
+![12 error-glibc](https://github.com/user-attachments/assets/e89af7da-ec41-44a3-b6b1-9f16d8f3e0f0)
 
 Step 3: Setting up the munge key in container :
 
@@ -159,9 +163,11 @@ dnf install pam-devel python3 readline-devel perl-ExtUtils-MakeMaker gcc mysql-d
 # now try to build the package again
 rpmbuild -ta slurm-20.11.9.tar.bz2
 
-#13
-#14
-#15
+![13 slurm-package-get](https://github.com/user-attachments/assets/0ce164c9-3ec0-4771-8396-ca9975b3862c)
+
+![14 slurm-dependencies](https://github.com/user-attachments/assets/6ca82f3b-8b47-42d4-b26e-eeead45757e8)
+
+![15 dependencies-install](https://github.com/user-attachments/assets/b4c97972-d865-47b4-a356-4af7f9c37d91)
 
 Step 5: Create Slurm User for SLURM Service ;
 export SLURMUSER=900;
@@ -172,8 +178,9 @@ useradd -m -c "SLURM workload manager" -d /var/lib/slurm -u $SLURMUSER -g slurm 
 
 cat /etc/passwd | grep slurm;
 
-#16
-#17
+![16 create-slurm-user](https://github.com/user-attachments/assets/8838a40d-9323-42e2-867f-41ff6cff37b8)
+
+![17 slurm-user-container](https://github.com/user-attachments/assets/317bf071-78ce-400f-b50e-e4dba329df9d)
 
 Step 6: installing packages from rpm builds :
 
@@ -189,9 +196,11 @@ rpm -qa | grep slurm | wc -l
 # copy packages to shared folder with container
 cp * /root/test/;
 
-#18
-#19
-#20
+![18 rpm-packages](https://github.com/user-attachments/assets/3015dd07-8a41-4cec-9afd-162733ed1d6c)
+
+![19 confirm-rpm-packages](https://github.com/user-attachments/assets/89828fac-6073-46b9-9f9e-065f756f4460)
+
+![20 installing-slurm-packages-on-container](https://github.com/user-attachments/assets/2180125e-5204-4e06-9583-9501b00ff6ce)
 
 Step 7: creating repositories for slurm on master and node :
 
@@ -216,7 +225,8 @@ touch /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 # change ownership
 chown slurm:slurm /var/log/slurm_jobacct.log /var/log/slurm_jobcomp.log
 
-#21
+![21 changing-permissions-slurms](https://github.com/user-attachments/assets/284a5a10-f67a-4536-9f85-46e087a2d1cf)
+
 
 Step 8: Edit the configuration file :
 
@@ -249,7 +259,8 @@ systemctl start slurmctld;systemctl enable slurmctld;
 # start slurmd service on node1
 systemctl start slurmd;systemctl enable slurmd;
 
-#22
+![slurm_conf](https://github.com/user-attachments/assets/4936d334-d9da-4fda-a309-91dc2c0f423b)
+
 
 Step 9: To sync the the user with containers we use the command :
 
@@ -268,8 +279,9 @@ Step 1: Installing the Ganglia on master node
 dnf install epel-release -y
 dnf install ganglia ganglia-gmetad ganglia-gmond ganglia-web -y
 
-#23
-#24
+![23](https://github.com/user-attachments/assets/cc5b9296-57eb-4a5a-857c-16ffb074a590)
+
+![24](https://github.com/user-attachments/assets/fab35def-bc9d-42fe-bc6f-6dbfe8773ac6)
 
 Step 2: Edit the conf files on master node :
 
@@ -285,9 +297,12 @@ vim /etc/ganglia/gmond.conf
     line no 57: comment this line
     line no 59: comment this line
 
-#25
-#26
-#27
+![25](https://github.com/user-attachments/assets/889ecfda-b7fc-41e9-b395-88d1aa306d89)
+
+![26](https://github.com/user-attachments/assets/fb7ceb44-ec07-448e-8ccf-529dba60f68e)
+
+![27](https://github.com/user-attachments/assets/2d1f1a88-0440-4003-b855-2945391e2fba)
+
 
 Step 3: Start the services on master:
 
@@ -295,8 +310,9 @@ systemctl start gmetad gmond httpd
 systemctl enable gmetad gmond httpd
 systemctl status gmetad gmond httpd
 
-#28
-#29
+![28](https://github.com/user-attachments/assets/d3ad643f-16bd-45fb-a416-a6516a8a7313)
+
+![29](https://github.com/user-attachments/assets/c6dd5fa0-a873-4883-ba61-7c315a946955)
 
 
 Step 4: Installing the Ganglia on Container :
@@ -304,8 +320,9 @@ Step 4: Installing the Ganglia on Container :
 dnf install epel-release -y
 dnf install ganglia ganglia-gmond -y
 
-#30
-#31
+![30](https://github.com/user-attachments/assets/5da26fb1-da79-415c-a791-6881286e1258)
+
+![31](https://github.com/user-attachments/assets/a219d7df-1e3f-462d-85de-a8eeab950622)
 
 
 Step 5:Edit the gmond.conf file on Container :
@@ -317,8 +334,10 @@ vim /etc/ganglia/gmond.conf
     line no 57: comment this line
     line no 59: comment this line
 
-#32
-#33
+![32](https://github.com/user-attachments/assets/a75f2262-a83b-4297-9eaf-6a26abaab3bd)
+
+![33](https://github.com/user-attachments/assets/7b9dfbc4-4183-4fcb-9924-412e9dfb4cca)
+
 
 Step 6 :Start the services on container:
 
@@ -336,9 +355,12 @@ wwctl overlay build
 # this command rebuild the container forcefully
 wwctl container build -f rocky-8
 
-#34
+![34](https://github.com/user-attachments/assets/53db1e12-8327-4ef1-a112-3c90123add38)
+
 
 Step 8: After successfully booting up the node :
 
-#35
-#36
+![35](https://github.com/user-attachments/assets/4120d184-4d54-48b0-96b8-e3fb5772e44b)
+
+![36](https://github.com/user-attachments/assets/0d4cd67d-6d28-4fed-aec8-c589bc92cfc2)
+
