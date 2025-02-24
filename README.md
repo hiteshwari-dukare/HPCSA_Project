@@ -1,4 +1,4 @@
-# HPCSA_Project
+#HPCSA_Project
 #Deployment HPC Cluster on Container
 
 Warewulf:
@@ -27,6 +27,7 @@ yum install -y warewulf
 Step3: Making changes for warewulf configuration file i.e. warewulf.conf :
 
 vim /etc/warewulf/warewulf.conf
+
     Line no 2: change ip address
     Line no 4: change network
     Line no 14: change DHCP starting ip address
@@ -291,6 +292,7 @@ vim /etc/ganglia/gmetad.conf
 
 
 vim /etc/ganglia/gmond.conf
+
     line no 30: give the cluster name
     line no 31: set the owner name
     line no 50: give the master ip address
@@ -328,6 +330,7 @@ dnf install ganglia ganglia-gmond -y
 Step 5:Edit the gmond.conf file on Container :
 
 vim /etc/ganglia/gmond.conf
+
     line no 30: give the cluster name
     line no 31: set the owner name
     line no 50: give the master ip address
